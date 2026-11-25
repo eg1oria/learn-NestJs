@@ -1,0 +1,16 @@
+# зависимости и сборка
+node_modules/
+dist/
+coverage/
+.next/
+out/
+*.tsbuildinfo
+
+# секреты и окружение
+.env
+.env.*
+!.env.example
+
+# система / редакторы
+.DS_Store
+*.log

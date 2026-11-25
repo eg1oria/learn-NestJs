@@ -1,0 +1,15 @@
+{
+  "startedAt": "2026-11-25",
+  "profile": {
+    "jsTs": "база есть, алгоритмы пишет неуверенно",
+    "frontend": "пишет на Next.js",
+    "git": "add / commit / push",
+    "hoursPerWeek": "6–10"
+  },
+  "tasks": {
+    "0.1": { "status": "open", "openedAt": "2026-11-25" }
+  },
+  "badges": [],
+  "weakSpots": [],
+  "log": []
+}
