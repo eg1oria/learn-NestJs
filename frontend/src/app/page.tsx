@@ -7,6 +7,7 @@ import { getLesson, lessons, toSlug } from "@/content/lessons";
 import { levelFor, levelName, levels } from "@/content/levels";
 import { BadgeIcon } from "@/components/BadgeIcon";
 import { ReadCards } from "@/components/ReadCards";
+import { ProgressSystemMap } from "@/components/ProgressSystemMap";
 import { StatusIcon } from "@/components/StatusChip";
 import { getProgress, isDone, statusLabel, statusOf, totalXp, type Progress } from "@/lib/progress";
 import { getTask } from "@/lib/tasks";
@@ -39,6 +40,17 @@ async function Dashboard() {
       {totalXp(progress) === 0 ? (
         <ReadCards slugs={["how-to-study", "terminal", "npm", "debugging"]} title="Перед стартом: 4 короткие статьи" />
       ) : null}
+      <section aria-labelledby="build-title">
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+          <h2 id="build-title" className="font-serif text-2xl font-semibold text-ink">Что ты строишь</h2>
+          <Link href="/path" className="inline-flex items-center gap-1 text-sm text-accent hover:underline">
+            Весь путь до Middle <ArrowRight size={14} aria-hidden />
+          </Link>
+        </div>
+        <div className="rounded-2xl border border-line bg-surface p-4 sm:p-6">
+          <ProgressSystemMap progress={progress} />
+        </div>
+      </section>
       <CourseMap progress={progress} />
       <BadgeShelf progress={progress} />
       <ReviewLog progress={progress} />

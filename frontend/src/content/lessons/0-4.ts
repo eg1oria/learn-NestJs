@@ -33,6 +33,30 @@ export const lesson: Lesson = {
       ],
     },
 
+    { type: "h", id: "scenario", text: "Сценарий — проверка чертежа" },
+    {
+      type: "p",
+      text: "Лучший способ проверить API — прогнать по нему **сценарий пользователя** и следить, откуда берётся каждый `id`. Вот пример на лавке алхимика (не на Гильдии — её сценарий ты пройдёшь сам):",
+    },
+    {
+      type: "sequence",
+      title: "Сценарий: новый алхимик варит и продаёт зелье",
+      actors: [
+        { id: "client", label: "Клиент", sub: "фронтенд или curl" },
+        { id: "api", label: "API лавки", sub: "бэкенд" },
+      ],
+      steps: [
+        { from: "client", to: "api", label: "POST /alchemists {name}", text: "Регистрируем алхимика. В теле только имя — `id` придумывает **сервер**, а не клиент." },
+        { from: "api", to: "client", label: "201 {id: 3, name}", kind: "response", text: "Сервер вернул созданного алхимика с `id: 3`. **Запоминаем этот id**: без него следующий шаг невозможен." },
+        { from: "client", to: "api", label: "POST /alchemists/3/potions", text: "Варим зелье от имени алхимика 3. `id` из прошлого ответа стал частью пути." },
+        { from: "api", to: "client", label: "201 {id: 12, price: 40}", kind: "response", text: "Новое зелье получило `id: 12`." },
+        { from: "client", to: "api", label: "POST /orders {potionId: 12}", text: "Покупатель оформляет заказ на зелье 12." },
+        { from: "api", to: "client", label: "409 нет в наличии", kind: "error", text: "Пример ошибки из чертежа: зелье уже раскупили. Сценарий должен учитывать и такие ветки." },
+        { from: "client", to: "api", label: "GET /alchemists?sort=-sales", text: "Рейтинг алхимиков по продажам — аналог твоей таблицы лидеров." },
+        { from: "api", to: "client", label: "200 [ … ]", kind: "response", text: "Сценарий пройден целиком, и каждый `id` откуда-то взялся. Если на каком-то шаге id «неоткуда взять», значит, в чертеже дыра." },
+      ],
+    },
+
     { type: "h", id: "template", text: "Формат описания эндпоинта" },
     {
       type: "p",

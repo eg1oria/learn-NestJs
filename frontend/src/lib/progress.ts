@@ -79,3 +79,15 @@ export const statusLabel: Record<TaskStatus, string> = {
   accepted_with_notes: "Принято с замечаниями",
   accepted_with_solution: "Принято с решением",
 };
+
+/** Модули, где все уроки сданы, и текущий модуль (первый несданный). */
+export function moduleProgress(
+  progress: Progress,
+  modules: { id: number; lessonIds: string[] }[],
+) {
+  const doneModules = modules
+    .filter((m) => m.lessonIds.length > 0 && m.lessonIds.every((id) => isDone(statusOf(progress, id))))
+    .map((m) => m.id);
+  const currentModule = modules.find((m) => !doneModules.includes(m.id))?.id ?? modules.length;
+  return { doneModules, currentModule };
+}

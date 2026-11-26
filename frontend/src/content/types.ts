@@ -18,7 +18,51 @@ export type DiagramId =
   | "nest-bootstrap"
   | "request-lifecycle"
   | "log-anatomy"
-  | "health-balancer";
+  | "health-balancer"
+  | "event-loop"
+  | "json-roundtrip"
+  | "class-instances"
+  | "compile-pipeline"
+  | "call-stack"
+  | "url-tree";
+
+/** Узлы большой карты бэкенда (content/system.ts). */
+export type SystemNodeId =
+  | "browser"
+  | "curl"
+  | "tests"
+  | "ws"
+  | "middleware"
+  | "guard"
+  | "interceptor"
+  | "pipe"
+  | "controller"
+  | "filter"
+  | "service"
+  | "docs"
+  | "modules"
+  | "config"
+  | "logger"
+  | "health"
+  | "db"
+  | "cache"
+  | "queue"
+  | "docker";
+
+export type SequenceBlock = {
+  type: "sequence";
+  title?: string;
+  actors: { id: string; label: string; sub?: string }[];
+  steps: {
+    from: string;
+    to: string;
+    /** Подпись на стрелке, коротко: "GET /health". */
+    label: string;
+    kind?: "request" | "response" | "self" | "error";
+    /** Объяснение шага под диаграммой. */
+    text: string;
+  }[];
+};
 
 export type QuizKind = "predict" | "bug" | "concept";
 
@@ -59,6 +103,11 @@ export type Block =
   | { type: "read"; slugs: string[]; title?: string }
   /** Построчный разбор кода: шаги подсвечивают диапазоны строк. */
   | WalkthroughBlock
+  /** Большая карта бэкенда с подсветкой того, чего касается урок. */
+  | { type: "system"; focus: SystemNodeId[]; caption?: string }
+  | SequenceBlock
+  /** Цепочка шагов с объяснениями (кликабельная). */
+  | { type: "flow"; steps: { title: string; code: string; text: string }[] }
   | QuizBlock;
 
 export type WalkthroughBlock = {
@@ -100,4 +149,8 @@ export type CourseModule = {
   topics: string[];
   /** Пусто — модуль ещё не сгенерирован (откроется по мере прохождения). */
   lessonIds: string[];
+  /** План уроков модуля (названия), пока сами уроки не написаны. */
+  planned?: string[];
+  /** Что в итоге появится в Гильдии после модуля. */
+  outcome?: string;
 };

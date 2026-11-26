@@ -13,6 +13,12 @@ export const lesson: Lesson = {
       text: "Когда самолёт падает, никто не гадает о причинах: открывают **бортовой самописец**, где записан каждый шаг. Лог сервера — такой же самописец. Пользователь видит только «что-то пошло не так». Что именно пошло не так, знает лишь лог.",
     },
 
+    {
+      type: "system",
+      focus: ["logger", "filter"],
+      caption: "Логи и обработка ошибок. Сейчас ошибки ловит встроенный обработчик Nest, свой фильтр ошибок ты напишешь в модуле 6.",
+    },
+
     { type: "h", id: "line", text: "Из чего состоит строка лога" },
     { type: "diagram", id: "log-anatomy" },
     {
@@ -91,6 +97,7 @@ export class PotionsService {
     at AppController.getWelcome (file:///…/node_modules/@nestjs/observe/dist/instrument/…:604:79)
     …`,
     },
+    { type: "diagram", id: "call-stack" },
     {
       type: "list",
       items: [
@@ -108,6 +115,24 @@ Content-Type: application/json; charset=utf-8
 
 {"statusCode":500,"message":"Internal server error"}`,
       caption: "А клиент в это время видит только это, без стектрейса и текста ошибки.",
+    },
+    {
+      type: "sequence",
+      title: "Путь ошибки: от throw до 500",
+      actors: [
+        { id: "client", label: "Клиент" },
+        { id: "ctrl", label: "Контроллер" },
+        { id: "svc", label: "Сервис" },
+        { id: "handler", label: "Обработчик ошибок", sub: "встроен в Nest" },
+        { id: "log", label: "Лог", sub: "терминал" },
+      ],
+      steps: [
+        { from: "client", to: "ctrl", label: "GET /", text: "Обычный запрос." },
+        { from: "ctrl", to: "svc", label: "getWelcome()", text: "Контроллер зовёт сервис." },
+        { from: "svc", to: "handler", label: "throw Error", kind: "error", text: "Сервис бросает исключение. Выполнение метода обрывается, и ошибка летит **вверх по стеку**: сначала через контроллер, потом в Nest." },
+        { from: "handler", to: "log", label: "ERROR + стектрейс", kind: "error", text: "Встроенный обработчик ловит её и пишет **полную правду** в лог: текст и стектрейс. Это видишь только ты." },
+        { from: "handler", to: "client", label: "500 Internal server error", kind: "error", text: "Клиенту уходит **безопасный минимум**: статус 500 и общий текст. Сервер при этом не падает и продолжает обслуживать другие запросы." },
+      ],
     },
     {
       type: "why",

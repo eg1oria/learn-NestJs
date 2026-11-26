@@ -11,6 +11,7 @@ export const course: CourseModule[] = [
     description: "Что происходит между `fetch()` и ответом сервера.",
     topics: ["клиент и сервер", "порты", "HTTP", "JSON", "REST", "curl"],
     lessonIds: ["0.1", "0.2", "0.3", "0.4"],
+    outcome: "Понимаешь, что происходит между клиентом и сервером, и спроектировал API Гильдии",
   },
   {
     id: 1,
@@ -18,6 +19,7 @@ export const course: CourseModule[] = [
     description: "TypeScript для бэкенда, устройство Nest-проекта, логи.",
     topics: ["классы", "async/await", "декораторы", "main.ts", "логи"],
     lessonIds: ["1.1", "1.2", "1.3", "1.4"],
+    outcome: "Сервер Гильдии здоровается и отвечает на GET /health",
   },
   {
     id: 2,
@@ -25,6 +27,8 @@ export const course: CourseModule[] = [
     description: "Эндпоинты для героев: читать, создавать, менять, удалять.",
     topics: ["@Get/@Post/@Patch/@Delete", "@Param", "@Query", "@Body", "статусы"],
     lessonIds: [],
+    outcome: "CRUD героев в памяти: GET / POST / PATCH / DELETE /heroes",
+    planned: ["Маршруты и параметры пути (@Param)", "Query-параметры: фильтры (@Query)", "Тело запроса: создай героя (@Body)", "Изменить и уволить: PATCH и DELETE", "Статусы и заголовки ответа", "Босс: CRUD героев"],
   },
   {
     id: 3,
@@ -32,6 +36,8 @@ export const course: CourseModule[] = [
     description: "Провайдеры и внедрение зависимостей. Почему официант не готовит.",
     topics: ["провайдеры", "Dependency Injection", "контейнер"],
     lessonIds: [],
+    outcome: "Логика героев живёт в сервисе, контроллер тонкий",
+    planned: ["Толстый контроллер и зачем сервис", "DI-контейнер изнутри", "Время жизни провайдеров", "Свои провайдеры: useValue, useFactory, токены", "Баг-охота №1", "Босс: таверна сервисов"],
   },
   {
     id: 4,
@@ -39,6 +45,8 @@ export const course: CourseModule[] = [
     description: "Код по фичам: герои отдельно, квесты отдельно.",
     topics: ["@Module", "imports/exports", "фичи"],
     lessonIds: [],
+    outcome: "Код разложен по фичам: модули heroes и quests",
+    planned: ["Модуль на фичу", "exports и imports", "Общие модули и циклические зависимости", "Генераторы nest generate", "Босс: модуль квестов"],
   },
   {
     id: 5,
@@ -46,6 +54,8 @@ export const course: CourseModule[] = [
     description: "Не доверяй клиенту: Zod, Standard Schema, pipes.",
     topics: ["Zod", "StandardSchemaValidationPipe", "DTO"],
     lessonIds: [],
+    outcome: "Кривые данные не проходят: уровень −5 получает 400",
+    planned: ["Почему нельзя доверять клиенту", "Схемы Zod", "StandardSchemaValidationPipe", "Параметры и query: преобразование типов", "DTO и типы из схем", "Босс: непробиваемый найм героя"],
   },
   {
     id: 6,
@@ -53,6 +63,8 @@ export const course: CourseModule[] = [
     description: "Исключения, HTTP-ошибки и единый формат ответа.",
     topics: ["HttpException", "exception filters"],
     lessonIds: [],
+    outcome: "Все ошибки API в одном понятном формате",
+    planned: ["HttpException и встроенные исключения", "Ошибки предметной области и HTTP", "Exception filters", "Единый формат ошибки", "Баг-охота №2", "Босс: ошибки как у взрослых"],
   },
   {
     id: 7,
@@ -60,6 +72,8 @@ export const course: CourseModule[] = [
     description: "Middleware → guard → interceptor → pipe → controller.",
     topics: ["middleware", "guards", "interceptors", "pipes"],
     lessonIds: [],
+    outcome: "Логгер запросов, замер времени и простой охранник",
+    planned: ["Middleware: логгер запросов", "Guards: кто проходит дальше", "Interceptors: до и после", "Свой pipe", "Свои декораторы", "Порядок конвейера", "Босс: конвейер Гильдии"],
   },
   {
     id: 8,
@@ -67,6 +81,8 @@ export const course: CourseModule[] = [
     description: "Настройки и секреты вне кода.",
     topics: ["@nestjs/config", ".env", "секреты"],
     lessonIds: [],
+    outcome: "Настройки и секреты в .env, разные окружения",
+    planned: ["Переменные окружения и .env", "@nestjs/config и проверка конфига", "Секреты и окружения dev / test / prod", "Босс: конфиг Гильдии"],
   },
   {
     id: 9,
@@ -74,6 +90,8 @@ export const course: CourseModule[] = [
     description: "PostgreSQL в Docker, ORM, миграции, связи таблиц.",
     topics: ["PostgreSQL", "Drizzle", "миграции", "1:N", "N:M"],
     lessonIds: [],
+    outcome: "Герои, инвентарь и квесты хранятся в PostgreSQL",
+    planned: ["Память против диска: зачем база", "SQL руками: таблицы, SELECT, INSERT", "PostgreSQL в Docker", "ORM: Drizzle или TypeORM", "Схема и миграции", "Связь 1:N: герой и инвентарь", "Связь N:M и JOIN: герои и квесты", "Индексы: почему запрос тормозит", "Босс: Гильдия в базе"],
   },
   {
     id: 10,
@@ -81,6 +99,8 @@ export const course: CourseModule[] = [
     description: "Пагинация, фильтры, сортировка, транзакции.",
     topics: ["пагинация", "фильтры", "транзакции"],
     lessonIds: [],
+    outcome: "Списки с пагинацией, а «сдать квест» — одной транзакцией",
+    planned: ["Пагинация: offset и cursor", "Фильтры и сортировка без дыр", "Транзакции: всё или ничего", "Гонки: двое взяли один квест", "Проблема N+1", "Баг-охота №3", "Босс: сдать квест"],
   },
   {
     id: 11,
@@ -88,6 +108,8 @@ export const course: CourseModule[] = [
     description: "Кто ты такой? Пароли, сессии, токены.",
     topics: ["хэширование", "JWT", "@nestjs/authentication"],
     lessonIds: [],
+    outcome: "Регистрация и вход по паролю, токены",
+    planned: ["Аутентификация и авторизация", "Хэширование паролей", "Сессии и JWT", "@nestjs/authentication: вход и регистрация", "Refresh-токены", "Босс: врата Гильдии"],
   },
   {
     id: 12,
@@ -95,6 +117,8 @@ export const course: CourseModule[] = [
     description: "Что тебе можно? Роли и права.",
     topics: ["роли", "права", "@nestjs/authorization"],
     lessonIds: [],
+    outcome: "Роли и права: глава гильдии и рядовой",
+    planned: ["Роли", "@nestjs/authorization: права на ресурс", "Владение ресурсом: только свой герой", "Безопасность: OWASP на примерах", "Rate limiting входа", "Босс: права в Гильдии"],
   },
   {
     id: 13,
@@ -102,6 +126,8 @@ export const course: CourseModule[] = [
     description: "Unit и e2e: пишешь тесты сам.",
     topics: ["Jest", "supertest", "моки"],
     lessonIds: [],
+    outcome: "Гильдия покрыта твоими тестами",
+    planned: ["Пирамида тестов", "Unit-тесты сервисов и моки", "E2E с базой данных", "TDD на практике", "Что тестировать, а что нет", "Босс: покрой Гильдию тестами"],
   },
   {
     id: 14,
@@ -109,6 +135,8 @@ export const course: CourseModule[] = [
     description: "Swagger / OpenAPI из кода.",
     topics: ["@nestjs/swagger", "OpenAPI"],
     lessonIds: [],
+    outcome: "Живая документация API на /docs",
+    planned: ["OpenAPI", "@nestjs/swagger", "Версионирование API", "Босс: документация Гильдии"],
   },
   {
     id: 15,
@@ -116,6 +144,8 @@ export const course: CourseModule[] = [
     description: "CORS и запросы прямо из браузера.",
     topics: ["CORS", "Next.js", "куки"],
     lessonIds: [],
+    outcome: "«Моя гильдия» ходит в API прямо из браузера",
+    planned: ["CORS", "Куки и токены в браузере", "Запросы из Next.js", "Загрузка файлов", "Босс: фронт и бэк вместе"],
   },
   {
     id: 16,
@@ -123,6 +153,8 @@ export const course: CourseModule[] = [
     description: "Кэш, rate limiting, очереди, cron, WebSockets.",
     topics: ["кэш", "throttler", "очереди", "cron", "WebSockets"],
     lessonIds: [],
+    outcome: "Кэш, очереди, cron и лидерборд в реальном времени",
+    planned: ["Кэш", "Rate limiting", "Очереди (BullMQ)", "Задачи по расписанию", "События внутри приложения", "WebSockets", "Идемпотентность", "Босс: живой лидерборд"],
   },
   {
     id: 17,
@@ -130,5 +162,7 @@ export const course: CourseModule[] = [
     description: "Docker Compose, деплой и босс-проект.",
     topics: ["Docker Compose", "деплой", "босс-проект"],
     lessonIds: [],
+    outcome: "Гильдия в Docker, с CI и на сервере",
+    planned: ["Dockerfile", "Docker Compose: всё вместе", "CI: тесты на каждый push", "Деплой", "Наблюдаемость: логи, метрики, трейсы", "Архитектура и код-ревью", "Босс-проект"],
   },
 ];

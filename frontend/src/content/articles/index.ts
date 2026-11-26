@@ -1,4 +1,5 @@
 import type { Article, ArticleCategory } from "../types";
+import { article as backendAnatomy } from "./backend-anatomy";
 import { article as debugging } from "./debugging";
 import { article as git } from "./git";
 import { article as howToStudy } from "./how-to-study";
@@ -14,6 +15,7 @@ import { article as typescriptTypes } from "./typescript-types";
 /** Порядок здесь = порядок в библиотеке внутри категории. */
 export const articles: Article[] = [
   howToStudy,
+  backendAnatomy,
   terminal,
   npm,
   debugging,

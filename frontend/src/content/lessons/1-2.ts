@@ -22,6 +22,12 @@ export const lesson: Lesson = {
       text: "Открой `backend/` в VS Code и держи его рядом с этим уроком: мы пройдёмся по каждому файлу.",
     },
 
+    {
+      type: "system",
+      focus: ["controller", "service", "modules"],
+      caption: "Сегодня твой бэкенд — это один модуль, один контроллер и один сервис. К концу курса блоков станет больше, но все они будут устроены по тому же принципу.",
+    },
+
     { type: "h", id: "files", text: "Карта файлов" },
     {
       type: "table",
@@ -82,6 +88,27 @@ export const lesson: Lesson = {
       text: [
         "Почему не написать всё прямо в контроллере? Контроллер знает про **HTTP**: пути, статусы, заголовки. Сервис знает про **дело**: как начислить награду и кто кому должен.",
         "Когда завтра ту же логику понадобится вызвать по расписанию (cron), из очереди или через WebSocket, сервис переиспользуется целиком, а контроллер нет. А ещё сервис легко тестировать без HTTP. Без этого разделения получаются «толстые контроллеры» на 800 строк, которые боятся трогать.",
+      ],
+    },
+
+    { type: "h", id: "trace", text: "Один запрос по коду" },
+    {
+      type: "sequence",
+      title: "Что происходит при GET /",
+      actors: [
+        { id: "client", label: "Клиент", sub: "curl / браузер" },
+        { id: "nest", label: "Nest", sub: "роутер" },
+        { id: "ctrl", label: "AppController", sub: "app.controller.ts" },
+        { id: "svc", label: "AppService", sub: "app.service.ts" },
+      ],
+      steps: [
+        { from: "client", to: "nest", label: "GET /", text: "На порт 3000 пришёл текст `GET / HTTP/1.1`." },
+        { from: "nest", to: "nest", label: "ищу в таблице", kind: "self", text: "Nest смотрит в таблицу маршрутов, составленную при запуске (строки `Mapped` в логе). Для `GET /` записано: метод `getHello` класса `AppController`." },
+        { from: "nest", to: "ctrl", label: "getHello()", text: "Nest вызывает метод контроллера. Объект контроллера уже создан при запуске, и сервис в него уже передан." },
+        { from: "ctrl", to: "svc", label: "this.appService.getHello()", text: "Контроллер ничего не решает сам: он зовёт сервис." },
+        { from: "svc", to: "ctrl", label: "'Hello World!'", kind: "response", text: "Сервис возвращает строку." },
+        { from: "ctrl", to: "nest", label: "'Hello World!'", kind: "response", text: "Контроллер возвращает её дальше. Он просто `return`-ит значение, а не пишет HTTP-ответ сам." },
+        { from: "nest", to: "client", label: "200 text/html", kind: "response", text: "Nest сам упаковывает результат в HTTP-ответ: статус `200`, заголовок `Content-Type` (строка → `text/html`, объект → `application/json`) и тело. Это и есть удобство фреймворка: ты пишешь только логику." },
       ],
     },
 
@@ -150,6 +177,11 @@ Content-Type: application/json; charset=utf-8
       ],
     },
     {
+      type: "p",
+      text: "Что физически происходит, когда ты запускаешь сервер и сохраняешь файл:",
+    },
+    { type: "diagram", id: "compile-pipeline" },
+    {
       type: "callout",
       tone: "warn",
       title: "Ловушка watch-режима",
@@ -163,7 +195,7 @@ Content-Type: application/json; charset=utf-8
     },
     { type: "diagram", id: "request-lifecycle" },
 
-    { type: "read", slugs: ["nest-starter", "reading-tests", "npm", "git"] },
+    { type: "read", slugs: ["nest-starter", "reading-tests", "backend-anatomy", "npm"] },
 
     { type: "h", id: "check", text: "Проверь себя" },
     {

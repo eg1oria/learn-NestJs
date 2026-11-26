@@ -18,6 +18,12 @@ export const lesson: Lesson = {
       text: "Ты уже тысячу раз был **клиентом**: каждый `fetch()` в Next-проекте — это заказ, который ушёл куда-то и вернулся с JSON. Весь этот курс про то «куда-то». Пора зайти на кухню.",
     },
 
+    {
+      type: "system",
+      focus: ["browser", "curl", "controller", "service"],
+      caption: "Это бэкенд, который ты построишь за курс. Сегодня разбираемся с самым главным: кто спрашивает (слева) и кто отвечает (в середине).",
+    },
+
     { type: "h", id: "who", text: "Кто есть кто" },
     {
       type: "analogy",
@@ -36,6 +42,21 @@ export const lesson: Lesson = {
       tone: "info",
       title: "Сервер — это роль, а не железка",
       text: "Одна и та же программа может быть и тем и другим. Твой Next.js — **сервер** для браузера. Но когда серверный компонент Next делает `fetch` к бэкенду, Next в этот момент **клиент**. Роль определяется тем, кто начал разговор.",
+    },
+    {
+      type: "sequence",
+      title: "Кто кому клиент: «Моя гильдия» на платформе",
+      actors: [
+        { id: "browser", label: "Браузер", sub: "твой Chrome" },
+        { id: "next", label: "Next.js", sub: "платформа :3001" },
+        { id: "nest", label: "NestJS", sub: "твой бэкенд :3000" },
+      ],
+      steps: [
+        { from: "browser", to: "next", label: "GET /guild", text: "Ты открываешь страницу «Моя гильдия». Браузер — **клиент**, Next.js — **сервер**." },
+        { from: "next", to: "nest", label: "GET /health", text: "Чтобы собрать страницу, Next сам идёт в твой бэкенд. В этом запросе **клиент уже Next**, а сервер — Nest. Роль зависит от того, кто начал разговор." },
+        { from: "nest", to: "next", label: "200 {\"status\":\"ok\"}", kind: "response", text: "Nest отвечает JSON-ом. Твой код (после урока 1.4) решает, что именно здесь будет." },
+        { from: "next", to: "browser", label: "200 HTML", kind: "response", text: "Next вставляет данные в HTML и отдаёт браузеру готовую страницу. Браузер про Nest вообще не знает." },
+      ],
     },
     {
       type: "why",
@@ -116,7 +137,7 @@ export const lesson: Lesson = {
       ],
     },
 
-    { type: "read", slugs: ["internet", "terminal"] },
+    { type: "read", slugs: ["backend-anatomy", "internet", "terminal"] },
 
     { type: "h", id: "check", text: "Проверь себя" },
     {

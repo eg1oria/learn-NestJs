@@ -20,6 +20,12 @@ export const lesson: Lesson = {
       ],
     },
 
+    {
+      type: "system",
+      focus: ["browser", "curl"],
+      caption: "Урок про то, что летит по стрелке «HTTP» между клиентами и приложением.",
+    },
+
     { type: "h", id: "journey", text: "Путь запроса" },
     {
       type: "p",

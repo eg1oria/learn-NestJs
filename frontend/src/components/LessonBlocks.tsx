@@ -4,6 +4,9 @@ import { CodeBlock } from "./CodeBlock";
 import { Diagram } from "./diagrams";
 import { Quiz } from "./Quiz";
 import { ReadCards } from "./ReadCards";
+import { Sequence } from "./Sequence";
+import { SystemMap } from "./SystemMap";
+import { FlowStepper } from "./diagrams/FlowStepper";
 import { Walkthrough } from "./Walkthrough";
 import { Paragraphs, Rich } from "./Rich";
 
@@ -142,6 +145,21 @@ function BlockView({ block, lessonId }: { block: Block; lessonId: string }) {
       return <ReadCards slugs={block.slugs} title={block.title} />;
     case "walkthrough":
       return <Walkthrough block={block} />;
+    case "system":
+      return (
+        <figure className="rounded-xl border border-line bg-surface p-4 sm:p-6">
+          <div className="mb-3 text-sm font-semibold text-ink">Где мы на карте Гильдии</div>
+          <SystemMap mode={{ kind: "focus", focus: block.focus }} caption={block.caption} />
+        </figure>
+      );
+    case "sequence":
+      return <Sequence block={block} />;
+    case "flow":
+      return (
+        <figure className="rounded-xl border border-line bg-surface p-4 sm:p-6">
+          <FlowStepper steps={block.steps} />
+        </figure>
+      );
   }
 }
 
